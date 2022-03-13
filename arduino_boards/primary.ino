@@ -314,3 +314,57 @@ void rickRoll(byte &song) { // plays never gonna give you up
       }
     }
 }
+
+// Updates the current song if there is a new key presed on the keypad and returns true when an update happens and false otherwise
+bool update_song(byte &song) { 
+  byte out = key_pad();
+  if (out) {
+    song = out - 1;
+    return true;
+  }
+  return false;
+}
+
+// receives input from the key pad for 1-6 and returns 0 otherwise
+byte key_pad(){ 
+  byte out = 0;
+  digitalWrite(row1, HIGH);   // reads the second row for any pressed keypads
+  delay(5);
+  if (digitalRead(column0)) {
+    out = 4;
+  }
+  if (digitalRead(column1)) {
+    out = 5;
+  }
+  if (digitalRead(column2)) {
+    out = 6;
+  }
+  digitalWrite(row1, LOW);
+  
+  digitalWrite(row0, HIGH);   // reads the first row for any pressed keypads
+  delay(5);
+  if (digitalRead(column0)) {
+    out = 1;
+  }
+  if (digitalRead(column1)) {
+    out = 2;
+  }
+  if (digitalRead(column2)) {
+    out = 3;
+  }
+  digitalWrite(row0, LOW);
+  
+  digitalWrite(row2, HIGH);   // reads the third row for any pressed keypads
+  delay(5);
+  if (digitalRead(column0)) {
+    out = 7;
+  }
+  if (digitalRead(column1)) {
+    out = 8;
+  }
+  if (digitalRead(column2)) {
+    out = 9;
+  }
+  digitalWrite(row2, LOW);
+  return out;
+}t

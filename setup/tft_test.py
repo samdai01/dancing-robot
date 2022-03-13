@@ -4,6 +4,7 @@
 """
 TFT code from https://learn.adafruit.com/1-8-tft-display/python-usage
 to test the functionality of the TFT display.
+Feb 18, 2022
 
 Author(s): Melissa LeBlanc-Williams for Adafruit Industries
 """

@@ -71,3 +71,82 @@ void setup() {
   pinMode(com1, INPUT);
   pinMode(com2, INPUT);
 }
+
+int song = 0; //default song
+
+/**
+ * Loop function that reads the keypad binary output from the primary board and plays the corresponding song.
+ */
+void loop() {
+  if (digitalRead(com0) && digitalRead(com1) && !digitalRead(com2)){ //plays wii sports if the communication pins are set for wii sports
+    wiiSports();
+  }
+  else if (!digitalRead(com0) && !digitalRead(com1) && digitalRead(com2)){ //plays allstar
+    allStar();
+  }
+  else if (digitalRead(com0) && !digitalRead(com1) && digitalRead(com2)){ //plays runningInThe90s
+    runningInThe90s();
+  }
+}
+
+/**
+ * Buzzer tune for song 3 - wii sports
+ */
+void wiiSports(){ 
+  const short wii_sports[][2] = {{DS4, 967},
+                          {E4, 967},
+                          {FS4, 362},
+                          {B4, 362},
+                          {AS4, 241},
+                          {B4, 362},
+                          {FS4, 362},
+                          {DS4, 241},
+                          {B3, 362},
+                          {CS4, 362},
+                          {DS4, 241},
+                          {CS4, 1935},
+                          {rest, 967},
+                          {DS4, 967},
+                          {E4, 725},
+                          {DS4, 120},
+                          {E4, 120},
+                          {FS4, 362},
+                          {B4, 362},
+                          {CS5, 241},
+                          {B4, 725},
+                          {B4, 120},
+                          {CS5, 120},
+                          {E5, 362},
+                          {DS5, 362},
+                          {CS5, 241},
+                          {B4, 483},
+                          {FS4, 241},
+                          {GS4, 483},
+                          {CS5, 241},
+                          {CS5, 967},
+                          {rest, 241},
+                          {CS5, 120},
+                          {DS5, 120},
+                          {E5, 362},
+                          {DS5, 362},
+                          {CS5, 241},
+                          {B4, 483},
+                          {FS4, 1875},
+                          {rest, 241},
+                          {CS5, 120},
+                          {DS5, 120},
+                          {E5, 362},
+                          {DS5, 362},
+                          {CS5, 241},
+                          {B4, 483},
+                          {FS5, 1935},
+                          {rest, 483}};
+    for (auto &pair : wii_sports) {
+      tone(buzzer, pair[0]);
+      delay(pair[1]);
+      tone(buzzer, rest);
+      if (!digitalRead(com0) || !digitalRead(com1) || digitalRead(com2)) {
+        break;
+      }
+    }
+}
